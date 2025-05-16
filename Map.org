@@ -1,0 +1,80 @@
+#+TITLE: xzenfmt Project Map
+#+AUTHOR: json
+#+DATE: 2025-05-06
+
+* Navigation
+- Overview: [[file:README.org][README.org]]
+- Vision: [[file:VISION.org][VISION.org]]
+- Setup: [[file:.org/SETUP.org][SETUP.org]] (Needs content)
+- Specs: [[file:.org/SPEC.org][SPEC.org]]
+- CLI: [[file:.org/CLI.org][CLI.org]] (Needs content)
+- How it Works: [[file:.org/HOW_IT_WORKS.org][HOW_IT_WORKS.org]] (Needs content)
+- Tasks: [[file:.org/TASKS.org][TASKS.org]] (Optional: Create this)
+- Diagrams: [[file:.mermaid/MERMAID.org][.mermaid/MERMAID.org]]
+- Changelog: [[file:.org/CHANGELOG.org][CHANGELOG.org]]
+- Roadmap: [[file:.org/ROADMAP.org][ROADMAP.org]]
+
+
+* Folder Structure
+Based on `rust-projects.org` standard:
+#+BEGIN_SRC sh :eval no :exports code
+xzenfmt/
+├── Cargo.toml                # Workspace definition
+├── Rakefile                  # Build/task runner script
+├── README.org                # Project overview
+├── MAP.org                   # This file (folder structure)
+├── VISION.org                # Project long-term vision
+├── .gitignore                # Files ignored by git
+├── .envrc                    # Environment variables (direnv)
+├── .dir-locals.el            # Emacs directory-local settings
+│
+├── core/                     # Core logic library crate
+│   ├── Cargo.toml
+│   ├── core.rs               # Library entry point (re-exports modules)
+│   ├── command_runner.rs     # Runs external formatters
+│   ├── dependency_checker.rs # Checks for external tools
+│   ├── file_finder.rs        # Finds files to process (contains CliArgs struct)
+│   ├── processor.rs          # Orchestrates formatting/stripping steps
+│   └── stripper.rs           # Comment stripping dispatcher
+│   └── stripper/             # Language-specific stripper modules
+│       ├── c_family.rs       # C, C++, JS, CSS, etc.
+│       ├── common.rs         # Shared types/logic for stripping
+│       ├── crystal.rs        # Crystal (# and {# #})
+│       ├── fish.rs           # Fish Shell (#)
+│       ├── haskell_elm.rs    # Haskell, Elm (-- and {- -})
+│       ├── json.rs           # JSON/JSONC (uses c_family logic)
+│       ├── lua.rs            # Lua (-- and --[[ ]])
+│       ├── nix.rs            # Nix (# and /* */)
+│       ├── python.rs         # Python (#)
+│       ├── ruby.rs           # Ruby (#, basic)
+│       ├── rust.rs           # Rust (// and /* */)
+│       ├── shell.rs          # POSIX Shell, Dockerfile, Perl (#)
+│       ├── toml.rs           # TOML (#)
+│       ├── twig.rs           # Twig ({# #})
+│       ├── xml_html.rs       # XML, HTML, Markdown ()
+│       └── yaml.rs           # YAML (#)
+│
+├── cli/                      # Command-line interface binary crate
+│   ├── Cargo.toml
+│   ├── cli.rs                # Binary entry point, arg parsing
+│   └── interaction.rs        # User confirmation logic
+│
+├── .org/                     # Org-mode documentation files
+│   ├── SPEC.org              # Technical specifications
+│   ├── CHANGELOG.org         # Record of changes
+│   ├── ROADMAP.org           # Future plans
+│   └── ...                   # (SETUP.org, CLI.org, HOW_IT_WORKS.org, etc. need creation)
+│
+├── .mermaid/                 # Mermaid diagram files
+│   ├── MERMAID.org           # Org file to tangle .mmd files
+│   ├── mmd/                  # Source .mmd files
+│   │   └── crate_deps.mmd    # Crate dependency diagram source
+│   └── diagrams/             # Generated .svg diagrams
+│       └── crate_deps_YYYYMMDD.svg # Example generated diagram
+│
+├── config/                   # Non-sensitive config files (e.g., dev settings)
+├── .config/                  # Hidden/runtime config files
+├── conf/                     # Sample/default config files
+│
+└── target/                   # Build artifacts (ignored by git)
+#+END_SRC

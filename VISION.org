@@ -1,0 +1,103 @@
+#+TITLE: xzenfmt Vision
+#+AUTHOR: json
+#+DATE: May 07, 2025
+
+* Vision
+
+As the times we are living is drastically changing... Due to rise of AI.
+
+It was good and really helpful, like an assistant who can do the boring tasks for me.
+
+But one of the most annoying thing is that ai adds unwanted/unessary comments to the code.
+
+No matter what i do, i keeps doing it at some point. I am not an big fan of code comments,
+
+Like i believe code looks pretty without comments at all, unless it is for generating docs comments like ( rustdoc, rubydoc, jsdoc, phpdoc ... )
+
+So, i wanted to create a tool as an part of xtoolit and named it as xzenfmt
+
+X - Part of Xtoolkit ( xtoolkit is an helpful tools which for personal use case )
+Zen - Distraction Free
+Fmt - Format Code
+
+So, at first i thought about how to safely remove comments without breaking code.
+
+First thing came to my mind was regex, but i know that it can handle simple stuff
+
+but cannot handle more complicated code comments and safely remove comments from the code.
+
+So, i checked online and did a little bit of research on how to remove code comments
+
+and checked github on how people already did it.
+
+Most of the repos used regex or just simple approach, out of the repos one repo caught my eye.
+
+Repo Link: https://github.com/XOSplicer/comment-strip
+
+Intrestingly as i did more research and looked into it, i found that they used FSM ( finite state machine )
+
+For handling code comments. It kinda looked cool and i did an little bit more research on this
+
+and found that it was exactly what i wanted. Also, i played with using tree sitter and custom lexer/parser
+
+but that seemed too much and didn't fit my vision so, i thought about moving forward with the fsm.
+
+Once i have done the basic implementation and started writing some tests,
+
+
+For formatters, i am wondering is there an way to do it internally without relying on external tools ?
+
+That's might be really complicated, maybe due to like handling the whole language syntax and stuff.
+
+Maybe we can let's see that's possible. ( Look into AI, like how it does it really good even for the weirdest languages
+
+it formats it correctly )
+
+
+Now comes the challenge, how to handle nested comments, so i thought that instead of just regular fsm, after some little bit
+
+of research i found that argumented fsm might be good for it.
+
+Next challenge, how to handle TODO, FIXME and doc comments how we can differentitate it with
+
+I wondered if we store the comments in some kind of nice tree like kinda data structure with node.
+
+So, searching, filtering and removing would be much easier
+
+Project -> Has Many Files -> Each File Has Many Comments -> Each Comment might Have Nested Comments.
+
+Still, even after filtering and doing different things. But still some cases where there is no structure at all.
+
+When i looked in zed source code, it has comments like no sturtcure
+
+Usually comments look better atleast when they add something like this:
+
+TODO: implement x function
+FIXME: fix parser issue
+README: don't touch this code, just leave it alone pls
+EXPLAIN: it has some issues when parsing unicode, but works well for now
+
+But most of the people just add comments without any structure at all,
+
+// Maybe i don't know what the point of this comment, but i am commenting anyway
+
+To solve this problem, we need human interaction for that maybe i thought we can use amber.
+
+It's an amazing tool called ambr, it's search and replace tool.
+
+https://github.com/dalance/amber
+
+So similar to amber we can just show interactive way to remove comments or safelist it:
+
+The user on first run will see this to add safe list ( safe list will be stored as an binary structure )
+
+and user can remove comments:
+
+S - Add comments to safe list
+R - Delete comment
+
+On second run read from binary file and remove comments and apply the comments ( safe list ) using some pattern matching.
+
+Like storing the line no or start or end position will be not that much reliable. so match pattern and apply it.
+
+> To be continued...

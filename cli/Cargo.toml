@@ -1,0 +1,18 @@
+[package]
+name = "xzenfmt-cli"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "xzenfmt"
+path = "cli.rs"
+
+[dependencies]
+anyhow = { workspace = true }
+clap = { workspace = true }
+clap_complete = { workspace = true }
+console = { workspace = true }
+dialoguer = { workspace = true }
+tokio = { workspace = true }
+
+xzenfmt-core = { workspace = true }

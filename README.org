@@ -1,0 +1,48 @@
+#+TITLE: xzenfmt: Zen Formatter & Stripper Overview
+#+AUTHOR: json
+#+DATE: 2025-05-06
+
+* Overview
+
+`xzenfmt` is a minimalist command-line tool designed to format source code using external formatters and strip comments/whitespace across various programming languages. It now features enhanced comment stripping that can remove lines consisting only of comments.
+
+It aims to provide a single, fast, consistent, and "zen-like" (minimal output) interface for maintaining clean and uniformly formatted codebases.
+
+* Why It Exists
+
+I want xzenfmt to handle comments across various languages efficiently,
+
+and make the code readable like zen without distractions.
+
+The research about FSM argumented and data sturcuture for storing comments can be found on
+
+[[file:VISION.org][VISION.org]]
+
+* What Problem Does it Solves ?
+
+Only of the main reasons of this tool creation was to solve the common problem of AI assistants adding excessive comments to generated code.
+
+I'm not against comments, but less the comments the much better.
+
+* Navigation
+- Folder structure & File Map: [[file:MAP.org][MAP.org]].
+- Project Vision: [[file:VISION.org][VISION.org]].
+- Technical Specifications: [[file:.org/SPEC.org][SPEC.org]].
+- Setup Instructions: [[file:.org/SETUP.org][SETUP.org]] (Needs content).
+- CLI Usage: [[file:.org/CLI.org][CLI.org]] (Needs content).
+- How it Works: [[file:.org/HOW_IT_WORKS.org][HOW_IT_WORKS.org]] (Needs content).
+- Diagrams: [[file:.mermaid/MERMAID.org][.mermaid/MERMAID.org]].
+- Changelog: [[file:.org/CHANGELOG.org][CHANGELOG.org]].
+- Future Plans: [[file:.org/ROADMAP.org][ROADMAP.org]].
+- Other Docs: See the `.org/` directory.
+
+* Getting Started
+1. Ensure Rust and required external formatters (see [[file:.org/SETUP.org][SETUP.org]]) are installed.
+2. Run `rake setup` in the project root.
+3. Check dependencies: `cargo run --bin xzenfmt -- --check-dependencies`
+4. **Default (Format Only):** `cargo run --bin xzenfmt -- path/to/your/code`
+5. **Strip Comments (Smart):** `cargo run --bin xzenfmt -- --strip-comments path/to/your/code`
+6. **Format -> Strip -> Format:** `cargo run --bin xzenfmt -- --all path/to/your/code`
+7. **Other Modes:** Use `--strip-whitespace` or `--strip-newlines`.
+
+(See [[file:.org/CLI.org][CLI.org]] for all options - requires creating this file).

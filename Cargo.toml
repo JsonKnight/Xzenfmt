@@ -1,0 +1,20 @@
+[workspace]
+resolver = "2"
+members = [
+    "core",
+    "cli",
+]
+
+[workspace.dependencies]
+anyhow = "1.0.86"
+clap = { version = "4.5.11", features = ["derive"] }
+clap_complete = "4.5.50"
+console = "0.15.8"
+dialoguer = "0.11.0"
+ignore = "0.4.22"
+rayon = "1.10.0"
+tempfile = "3.10.1"
+thiserror = "1.0.63"
+walkdir = "2.5.0"
+tokio = { version = "1.38.1", features = ["full"] }
+xzenfmt-core = { path = "./core" }
